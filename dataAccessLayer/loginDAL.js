@@ -1,20 +1,31 @@
-var mysql = require('../connections/sql.connector');
+var connection = require('../connections/mongo.connection');
 
-var loginDAL = function(loginObject) {
-  var con;
+var loginDAL = function(req, res, loginObject) {
+  console.log(loginObject);
+  connection((err, client) => {
+    if (err) {
+      console.log('Connection not created');
+      res.status(500).json({
+        message: 'We are facing issues with DB, please try after sometime'
+      });
+    } else {
+      console.log(loginObject);
+      var db = client.db('powerprogrammer');
 
-  return mysql
-    .then(connection => {
-      con = connection;
-      let result = con.query(
-        'select * from users where username=? and password=?',
-        [loginObject.username, loginObject.password]
-      );
-      return result;
-    })
-    .then(result => {
-      return result;
-    });
+      db.collection('users')
+        .find({ email: loginObject.email, password: loginObject.password })
+        .toArray(function(err, docs) {
+          if (docs.length > 0) {
+            res.json({
+              message: 'User Found',
+              id: docs[0]._id
+            });
+          } else {
+            res.status(401).json({message: 'Invalid Credentials'});
+          }
+        });
+    }
+  });
 };
 
 module.exports = loginDAL;

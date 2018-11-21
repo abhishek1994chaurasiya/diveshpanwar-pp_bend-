@@ -10,12 +10,7 @@ var signUpDAL = function(req, res, signupObject) {
     } else {
       console.log(signupObject);
       var db = client.db('powerprogrammer');
-      db.collection('users')
-        .find({ username: signupObject.username })
-        .toArray(function(err, docs) {
-          if (docs.length > 0) {
-            res.status(401).json({ message: 'Username Already Exist.' });
-          } else {
+      
             db.collection('users')
               .find({ email: signupObject.email })
               .toArray(function(err, docs) {
@@ -51,8 +46,6 @@ var signUpDAL = function(req, res, signupObject) {
                     });
                 }
               });
-          }
-        });
     }
   });
 };
