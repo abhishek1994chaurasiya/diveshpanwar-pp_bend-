@@ -20,6 +20,10 @@ router.get('/products', function(req, res) {
   productBL.allProducts(req, res);
 });
 
+router.get('/deals', function(req, res) {
+  productBL.allDeals(req, res);
+});
+
 router.post('/singleProduct', function(req, res){
     productBL.singleProduct(req, res);
 });

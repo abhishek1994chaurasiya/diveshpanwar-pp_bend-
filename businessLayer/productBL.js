@@ -3,6 +3,10 @@ exports.allProducts = function(req, res) {
     productDAL.allProducts(req, res);
 }
 
+exports.allDeals = function(req, res) {
+    productDAL.allDeals(req, res);
+}
+
 exports.singleProduct = function(req, res) {
     productDAL.singleProduct(req, res);
 }
