@@ -3,7 +3,7 @@ const router = express.Router();
 const login = require('../businessLayer/loginBL');
 const signup = require('../businessLayer/signupBL');
 const connection = require('../connections/mongo.connection');
-
+const productBL = require('../businessLayer/productBL');
 router.get('/', function(req, res, next) {
   res.send('<h1>Welcome to the Express App</h1>');
 });
@@ -14,6 +14,14 @@ router.post('/login', (req, res) => {
 
 router.post('/signup', (req, res, next) => {
   signup(req, res);
+})
+
+router.get('/products', function(req, res) {
+  productBL.allProducts(req, res);
+});
+
+router.post('/singleProduct', function(req, res){
+    productBL.singleProduct(req, res);
 })
 
 router.get('/mongoTest', (req, res) => {

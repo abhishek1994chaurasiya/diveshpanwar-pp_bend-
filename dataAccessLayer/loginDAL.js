@@ -1,7 +1,7 @@
 var connection = require('../connections/mongo.connection');
 
 var loginDAL = function(req, res, loginObject) {
-  console.log(loginObject);
+  // console.log(loginObject);
   connection((err, client) => {
     if (err) {
       console.log('Connection not created');
@@ -9,7 +9,7 @@ var loginDAL = function(req, res, loginObject) {
         message: 'We are facing issues with DB, please try after sometime'
       });
     } else {
-      console.log(loginObject);
+      // console.log(loginObject);
       var db = client.db('powerprogrammer');
 
       db.collection('users')
