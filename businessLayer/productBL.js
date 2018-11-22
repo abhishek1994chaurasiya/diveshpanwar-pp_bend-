@@ -6,3 +6,7 @@ exports.allProducts = function(req, res) {
 exports.singleProduct = function(req, res) {
     productDAL.singleProduct(req, res);
 }
+
+exports.searchProduct = function(req, res) {
+    productDAL.searchProduct(req, res);
+}

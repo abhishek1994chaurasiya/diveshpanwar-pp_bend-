@@ -22,7 +22,11 @@ router.get('/products', function(req, res) {
 
 router.post('/singleProduct', function(req, res){
     productBL.singleProduct(req, res);
-})
+});
+
+router.post('/searchProduct', function(req, res) {
+  productBL.searchProduct(req, res);
+});
 
 router.get('/mongoTest', (req, res) => {
   connection((err, client) => {
