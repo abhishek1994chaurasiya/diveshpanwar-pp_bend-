@@ -1,9 +1,12 @@
 var signupBean = require('../beans/signup.bean');
 var signupDAL = require('../dataAccessLayer/signupDAL');
 
-var signupBL = function(req, res) {
+exports.signupBL = function(req, res) {
     let signupObject = signupBean.toObject(req.body);
-    signupDAL(req, res, signupObject);
+    signupDAL.signUpDAL(req, res, signupObject);
 }
 
-module.exports = signupBL;
+exports.editProfile = function(req, res) {
+    let signupObject = signupBean.toObject(req.body);
+    signupDAL.editProfile(req, res, signupObject);
+}

@@ -11,6 +11,10 @@ exports.editCard = function(req, res) {
     cardDAL.editCard(req, res, cardObject);
 }
 
+exports.deleteCard = function(req, res) {
+    cardDAL.deleteCard(req, res);
+}
+
 exports.fetchCard = function(req, res) {
     cardDAL.fetchCard(req, res);
 }

@@ -11,6 +11,10 @@ exports.editAddress = function(req, res) {
     addressDAL.editAddress(req, res, addressObject);
 }
 
+exports.deleteAddress = function(req, res) {
+    addressDAL.deleteAddress(req, res);
+}
+
 exports.fetchAddress = function(req, res) {
     addressDAL.fetchAddress(req, res);
 }

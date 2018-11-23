@@ -83,3 +83,31 @@ exports.fetchCard = function(req, res) {
     }
   });
 };
+
+
+exports.deleteCard = function(req, res) {
+  connection((err, client) => {
+      if (err) {
+        console.log('Connection not created');
+        res.status(500).json({
+          message: 'We are facing issues with DB, please try after sometime'
+        });
+      } else {
+        // console.log(loginObject);
+        var db = client.db('powerprogrammer');
+  
+        db.collection('cards')
+          .deleteOne({
+            _id: mongojs.ObjectId(req.body.cardId)
+          },function(err, doc) {
+            if (err) {
+              return res
+                .status(400)
+                .json({ message: 'Something Wrong Happened' });
+            } else {
+              res.json(doc);
+            }
+          });
+      }
+    });    
+};

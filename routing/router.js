@@ -17,8 +17,13 @@ router.post('/login', (req, res) => {
 });
 
 router.post('/signup', (req, res, next) => {
-  signup(req, res);
+  signup.signupBL(req, res);
 });
+
+router.post('/editProfile', (req, res, next) => {
+  signup.editProfile(req, res);
+});
+
 
 router.get('/products', function(req, res) {
   productBL.allProducts(req, res);
@@ -44,6 +49,10 @@ router.post('/editAddress', function(req, res) {
   addressBL.editAddress(req, res);
 });
 
+router.post('/deleteAddress', function(req, res) {
+  addressBL.deleteAddress(req, res);
+});
+
 router.post('/fetchAddress', function(req, res) {
   addressBL.fetchAddress(req, res);
 });
@@ -54,6 +63,10 @@ router.post('/addCard', function(req, res) {
 
 router.post('/editCard', function(req, res) {
   cardBL.editCard(req, res);
+});
+
+router.post('/deleteCard', function(req, res) {
+  cardBL.deleteCard(req, res);
 });
 
 router.post('/fetchCard', function(req, res) {
