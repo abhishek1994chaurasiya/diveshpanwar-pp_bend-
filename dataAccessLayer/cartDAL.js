@@ -257,6 +257,7 @@ exports.toggleQuantity = function(req, res) {
 };
 
 exports.removeCartItem = function(req, res) {
+  console.log(req.body);
   connection((err, client) => {
     if (err) {
       console.log('Connection not created');
@@ -264,10 +265,9 @@ exports.removeCartItem = function(req, res) {
         message: 'We are facing issues with DB, please try after sometime'
       });
     } else {
-      // console.log(loginObject);
       var db = client.db('powerprogrammer');
 
-      db.collection('cart').deleteOne(
+      db.collection('carts').deleteOne(
         {
           _id: mongojs.ObjectId(req.body.cartId)
         },
@@ -277,7 +277,9 @@ exports.removeCartItem = function(req, res) {
               .status(400)
               .json({ message: 'Something Wrong Happened' });
           } else {
-            res.json(doc);
+            console.log(doc.deletedCount);
+
+            res.json(doc.deletedCount);
           }
         }
       );
