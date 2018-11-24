@@ -2,7 +2,6 @@ var connection = require('../connections/mongo.connection');
 var mongojs = require('mongojs');
 var cartBean = require('../beans/cartBean');
 
-
 exports.addBulkCart = function(req, res) {
   //   console.log(req.body.products);
   connection((err, client) => {
@@ -50,9 +49,7 @@ exports.addBulkCart = function(req, res) {
               products.forEach(product => {
                 let productFound = false;
                 cartDBArray.forEach(prod => {
-                  if (
-                    prod.productId == product.productId
-                  ) {
+                  if (prod.productId == product.productId) {
                     productFound = true;
                     let newQty =
                       Number(prod.productQuantity) +
@@ -65,9 +62,9 @@ exports.addBulkCart = function(req, res) {
                       notAdded += 1;
                     }
 
-                    if(addedArray.indexOf(prod.productId) == -1) {
-                        productArray.push(prod);
-                        addedArray.push(prod.productId);
+                    if (addedArray.indexOf(prod.productId) == -1) {
+                      productArray.push(prod);
+                      addedArray.push(prod.productId);
                     }
                   }
                   cartDBArray.forEach(function(prod) {
@@ -152,63 +149,185 @@ exports.getCartItems = function(req, res) {
   });
 };
 
-
 exports.addOneProduct = function(req, res) {
-    console.log(req.body);
-    const cartObject = cartBean.toObject(req.body);
-    connection((err, client) => {
-        if (err) {
-          console.log('Connection not created');
-          res.status(500).json({
-            message: 'We are facing issues with DB, please try after sometime'
-          });
-        } else {
-          // console.log(loginObject);
-          var db = client.db('powerprogrammer');
-          userId = req.body.userId;
-          db.collection('carts').find({
-              userId: req.body.userId,
-              productId: req.body.productId
-          }).toArray(function(err, docs) {
-            if (err) {
-                return res
-                  .status(400)
-                  .json({ message: 'Something Wrong Happened' });
-              } else {
-                console.log(docs);
-                if(docs && docs.length == 0) {
-                    db.collection('carts').insertOne(
-                        cartObject,
-                        function(err, doc) {
-                          if (err) {
-                            console.log(err);
-                            return res.status(400).json({message: 'Something Wrong Happened'});
-                          } else {
-                            return res.json({cartId: doc.insertedId});
-                          }
-                        }
-                      );
+  console.log(req.body);
+  const cartObject = cartBean.toObject(req.body);
+  connection((err, client) => {
+    if (err) {
+      console.log('Connection not created');
+      res.status(500).json({
+        message: 'We are facing issues with DB, please try after sometime'
+      });
+    } else {
+      // console.log(loginObject);
+      var db = client.db('powerprogrammer');
+      userId = req.body.userId;
+      db.collection('carts')
+        .find({
+          userId: req.body.userId,
+          productId: req.body.productId
+        })
+        .toArray(function(err, docs) {
+          if (err) {
+            return res
+              .status(400)
+              .json({ message: 'Something Wrong Happened' });
+          } else {
+            console.log(docs);
+            if (docs && docs.length == 0) {
+              db.collection('carts').insertOne(cartObject, function(err, doc) {
+                if (err) {
+                  console.log(err);
+                  return res
+                    .status(400)
+                    .json({ message: 'Something Wrong Happened' });
                 } else {
-                    db.collection('carts').findOneAndUpdate(
-                        {
-                            userId: req.body.userId,
-                            productId: req.body.productId
-                        },
-                        { $set : cartObject},
-                      function(err, doc, lastModifiedObjectError) {
-                        if (err) {
-                          console.log(err);
-                          return res.status(400).json({message: 'Something Wrong Happened'});
-                        } else {
-                          return res.json(doc);
-                        }
-                      }
-                    );
-            
+                  return res.json({ cartId: doc.insertedId });
                 }
-              }    
-          });
-        }
+              });
+            } else {
+              db.collection('carts').findOneAndUpdate(
+                {
+                  userId: req.body.userId,
+                  productId: req.body.productId
+                },
+                { $set: cartObject },
+                function(err, doc, lastModifiedObjectError) {
+                  if (err) {
+                    console.log(err);
+                    return res
+                      .status(400)
+                      .json({ message: 'Something Wrong Happened' });
+                  } else {
+                    return res.json(doc);
+                  }
+                }
+              );
+            }
+          }
+        });
     }
-    );
-}
+  });
+};
+
+exports.toggleQuantity = function(req, res) {
+  const cartObject = cartBean.toObject(req.body);
+  connection((err, client) => {
+    if (err) {
+      console.log('Connection not created');
+      res.status(500).json({
+        message: 'We are facing issues with DB, please try after sometime'
+      });
+    } else {
+      // console.log(loginObject);
+      var db = client.db('powerprogrammer');
+      userId = req.body.userId;
+      db.collection('carts')
+        .find({
+          userId: req.body.userId,
+          productId: req.body.productId
+        })
+        .toArray(function(err, docs) {
+          if (err) {
+            return res
+              .status(400)
+              .json({ message: 'Something Wrong Happened' });
+          } else {
+            db.collection('carts').findOneAndUpdate(
+              {
+                userId: req.body.userId,
+                productId: req.body.productId
+              },
+              { $set: cartObject },
+              function(err, doc, lastModifiedObjectError) {
+                if (err) {
+                  console.log(err);
+                  return res
+                    .status(400)
+                    .json({ message: 'Something Wrong Happened' });
+                } else {
+                  return res.json(doc);
+                }
+              }
+            );
+          }
+        });
+    }
+  });
+};
+
+exports.removeCartItem = function(req, res) {
+  connection((err, client) => {
+    if (err) {
+      console.log('Connection not created');
+      res.status(500).json({
+        message: 'We are facing issues with DB, please try after sometime'
+      });
+    } else {
+      // console.log(loginObject);
+      var db = client.db('powerprogrammer');
+
+      db.collection('cart').deleteOne(
+        {
+          _id: mongojs.ObjectId(req.body.cartId)
+        },
+        function(err, doc) {
+          if (err) {
+            return res
+              .status(400)
+              .json({ message: 'Something Wrong Happened' });
+          } else {
+            res.json(doc);
+          }
+        }
+      );
+    }
+  });
+};
+
+exports.addFromWishlist = function(req, res) {
+  console.log(req.body);
+  const cartObject = cartBean.toObject(req.body);
+  connection((err, client) => {
+    if (err) {
+      console.log('Connection not created');
+      res.status(500).json({
+        message: 'We are facing issues with DB, please try after sometime'
+      });
+    } else {
+      // console.log(loginObject);
+      var db = client.db('powerprogrammer');
+      userId = req.body.userId;
+      db.collection('carts')
+        .find({
+          userId: req.body.userId,
+          productId: req.body.productId
+        })
+        .toArray(function(err, docs) {
+          if (err) {
+            return res
+              .status(400)
+              .json({ message: 'Something Wrong Happened' });
+          } else {
+            console.log(docs);
+            if (docs && docs.length == 0) {
+              db.collection('carts').insertOne(cartObject, function(err, doc) {
+                if (err) {
+                  console.log(err);
+                  return res
+                    .status(400)
+                    .json({ message: 'Something Wrong Happened' });
+                } else {
+                  return res.json({ cartId: doc.insertedId });
+                }
+              });
+            } else {
+              return res
+                .status(400)
+                .json({ message: 'Product already in cart.' });
+            }
+          }
+        });
+    }
+  });
+};

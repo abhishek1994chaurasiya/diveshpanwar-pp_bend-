@@ -99,6 +99,14 @@ router.post('/addOneProduct', function(req, res) {
   cartBL.addOneProduct(req, res);
 });
 
+router.post('/toggleQuantity', function(req, res) {
+  cartBL.toggleQuantity(req, res);
+});
+
+router.post('/removeCartItem', function(req, res) {
+  cartBL.removeCartItem(req, res);
+});
+
 
 router.post('/addToWishlist', function(req, res) {
   wishlistBL.addToWishlist(req, res);
@@ -106,7 +114,11 @@ router.post('/addToWishlist', function(req, res) {
 
 router.post('/getWishlist', function(req, res) {
   wishlistBL.getWishlist(req, res);
-})
+});
+
+router.post('/addFromWishlist', function(req, res) {
+  cartBL.addFromWishlist(req, res);
+});
 
 router.post('/removeFromWishList', function(req, res) {
   wishlistBL.removeFromWishList(req, res);
