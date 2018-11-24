@@ -7,3 +7,7 @@ exports.addBulkCart = function(req, res) {
 exports.getCartItems = function(req, res) {
     cartDAL.getCartItems(req, res);
 }
+
+exports.addOneProduct = function(req, res) {
+    cartDAL.addOneProduct(req, res);
+}

@@ -149,3 +149,63 @@ exports.getCartItems = function(req, res) {
     }
   });
 };
+
+
+exports.addOneProduct = function(req, res) {
+    console.log(req.body);
+    connection((err, client) => {
+        if (err) {
+          console.log('Connection not created');
+          res.status(500).json({
+            message: 'We are facing issues with DB, please try after sometime'
+          });
+        } else {
+          // console.log(loginObject);
+          var db = client.db('powerprogrammer');
+          userId = req.body.userId;
+          db.collection('carts').find({
+              userId: req.body.userId,
+              productId: req.body.productId
+          }).toArray(function(err, docs) {
+            if (err) {
+                return res
+                  .status(400)
+                  .json({ message: 'Something Wrong Happened' });
+              } else {
+                console.log(docs);
+                if(docs && docs.length == 0) {
+                    db.collection('carts').insertOne(
+                        req.body,
+                        function(err, doc) {
+                          if (err) {
+                            console.log(err);
+                            return res.status(400).json({message: 'Something Wrong Happened'});
+                          } else {
+                            return res.json({cartId: doc.insertedId});
+                          }
+                        }
+                      );
+                } else {
+                    db.collection('carts').findOneAndUpdate(
+                        {
+                            userId: req.body.userId,
+                            productId: req.body.productId
+                        },
+                        { $set : req.body},
+                      function(err, doc, lastModifiedObjectError) {
+                        if (err) {
+                          console.log(err);
+                          return res.status(400).json({message: 'Something Wrong Happened'});
+                        } else {
+                          return res.json(doc);
+                        }
+                      }
+                    );
+            
+                }
+              }    
+          });
+        }
+    }
+    );
+}
