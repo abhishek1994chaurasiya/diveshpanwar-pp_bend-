@@ -7,7 +7,8 @@ var cartBean = function(
   discount,
   maxQty,
   extra,
-  productQuantity
+  productQuantity,
+  imgUrl
 ) {
   this.productId = productId;
   this.userId = userId;
@@ -18,6 +19,7 @@ var cartBean = function(
   this.maxQty = maxQty;
   this.extra = extra;
   this.productQuantity = productQuantity;
+  this.imgUrl = imgUrl;
 };
 
 cartBean.toObject = function(obj) {
@@ -30,7 +32,8 @@ cartBean.toObject = function(obj) {
     obj.discount,
     obj.maxQty,
     obj.extra,
-    obj.productQuantity
+    obj.productQuantity,
+    obj.imgUrl
   );
 };
 

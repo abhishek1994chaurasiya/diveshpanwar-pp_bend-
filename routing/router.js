@@ -8,7 +8,7 @@ const addressBL = require('../businessLayer/addressBL');
 const cardBL = require('../businessLayer/cardBL');
 const profileBL = require('../businessLayer/profileBL');
 const cartBL = require('../businessLayer/cartBL');
-
+const wishlistBL = require('../businessLayer/wishlistBL');
 router.get('/', function(req, res, next) {
   res.send('<h1>Welcome to the Express App</h1>');
 });
@@ -97,6 +97,19 @@ router.post('/getCartItems', function(req, res) {
 
 router.post('/addOneProduct', function(req, res) {
   cartBL.addOneProduct(req, res);
+});
+
+
+router.post('/addToWishlist', function(req, res) {
+  wishlistBL.addToWishlist(req, res);
+});
+
+router.post('/getWishlist', function(req, res) {
+  wishlistBL.getWishlist(req, res);
+})
+
+router.post('/removeFromWishList', function(req, res) {
+  wishlistBL.removeFromWishList(req, res);
 });
 
 router.get('/mongoTest', (req, res) => {
