@@ -7,6 +7,7 @@ const productBL = require('../businessLayer/productBL');
 const addressBL = require('../businessLayer/addressBL');
 const cardBL = require('../businessLayer/cardBL');
 const profileBL = require('../businessLayer/profileBL');
+const cartBL = require('../businessLayer/cartBL');
 
 router.get('/', function(req, res, next) {
   res.send('<h1>Welcome to the Express App</h1>');
@@ -83,6 +84,11 @@ router.post('/getAddresses', function(req, res) {
 
 router.post('/getCards', function(req, res) {
   profileBL.getCards(req, res);
+});
+
+
+router.post('/addBulkCart', function(req, res) {
+  cartBL.addBulkCart(req, res);
 });
 
 router.get('/mongoTest', (req, res) => {
