@@ -1,5 +1,7 @@
 var connection = require('../connections/mongo.connection');
 var mongojs = require('mongojs');
+var cartBean = require('../beans/cartBean');
+
 
 exports.addBulkCart = function(req, res) {
   //   console.log(req.body.products);
@@ -153,6 +155,7 @@ exports.getCartItems = function(req, res) {
 
 exports.addOneProduct = function(req, res) {
     console.log(req.body);
+    const cartObject = cartBean.toObject(req.body);
     connection((err, client) => {
         if (err) {
           console.log('Connection not created');
@@ -175,7 +178,7 @@ exports.addOneProduct = function(req, res) {
                 console.log(docs);
                 if(docs && docs.length == 0) {
                     db.collection('carts').insertOne(
-                        req.body,
+                        cartObject,
                         function(err, doc) {
                           if (err) {
                             console.log(err);
@@ -191,7 +194,7 @@ exports.addOneProduct = function(req, res) {
                             userId: req.body.userId,
                             productId: req.body.productId
                         },
-                        { $set : req.body},
+                        { $set : cartObject},
                       function(err, doc, lastModifiedObjectError) {
                         if (err) {
                           console.log(err);
