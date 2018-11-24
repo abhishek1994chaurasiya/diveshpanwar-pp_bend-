@@ -91,6 +91,10 @@ router.post('/addBulkCart', function(req, res) {
   cartBL.addBulkCart(req, res);
 });
 
+router.post('/getCartItems', function(req, res) {
+  cartBL.getCartItems(req, res);
+});
+
 router.get('/mongoTest', (req, res) => {
   connection((err, client) => {
     if (err) {
