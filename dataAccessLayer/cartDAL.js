@@ -59,7 +59,8 @@ exports.addBulkCart = function(req, res) {
                       added += 1;
                       prod.productQuantity = newQty;
                     } else {
-                      notAdded += 1;
+                      // notAdded += 1;
+                      prod.productQuantity = prod.maxQty;
                     }
 
                     if (addedArray.indexOf(prod.productId) == -1) {
