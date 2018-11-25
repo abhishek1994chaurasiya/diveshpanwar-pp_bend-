@@ -155,6 +155,10 @@ router.post('/getOrders', function(req, res) {
   orderBL.getOrders(req, res);
 });
 
+router.post('/filterOrder', function(req, res) {
+  orderBL.filterOrder(req, res);
+});
+
 router.post('/giveFeedback', function(req, res) {
   feedbackBL.giveFeedback(req, res);
 });
