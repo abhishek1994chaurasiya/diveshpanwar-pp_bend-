@@ -91,6 +91,10 @@ router.post('/getCards', function(req, res) {
   profileBL.getCards(req, res);
 });
 
+router.post('/getRecommendations', function(req, res) {
+  profileBL.getRecommendations(req, res);
+});
+
 
 router.post('/addBulkCart', function(req, res) {
   cartBL.addBulkCart(req, res);
