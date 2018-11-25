@@ -11,6 +11,7 @@ const cartBL = require('../businessLayer/cartBL');
 const wishlistBL = require('../businessLayer/wishlistBL');
 const checkoutBL = require('../businessLayer/checkoutBL');
 const orderBL = require('../businessLayer/orderBL');
+const notificationBL = require('../businessLayer/notificationBL');
 
 router.get('/', function(req, res, next) {
   res.send('<h1>Welcome to the Express App</h1>');
@@ -108,6 +109,18 @@ router.post('/toggleQuantity', function(req, res) {
 
 router.post('/removeCartItem', function(req, res) {
   cartBL.removeCartItem(req, res);
+});
+
+router.post('/getNotifications', function(req, res) {
+  notificationBL.getNotifications(req, res);
+});
+
+router.post('/updateNotification', function(req, res) {
+  notificationBL.updateNotification(req, res);
+});
+
+router.post('/getOrderDetail', function(req, res) {
+  orderBL.getOrderDetail(req, res);
 });
 
 

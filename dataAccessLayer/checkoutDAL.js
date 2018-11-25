@@ -56,7 +56,7 @@ exports.placeOrder = function(req, res) {
                 );
 
                 db.collection('notifications').insertOne(
-                  { userId: checkoutObject.userId,  message: `Order ${orderId} placed successfully`, status: 'unread'},
+                  { userId: checkoutObject.userId,  message: `Order ${orderId} placed successfully`, status: 'unread', orderId: doc.insertedId },
                   function(err, result) {
                     if (err) {
                       console.log(err);
