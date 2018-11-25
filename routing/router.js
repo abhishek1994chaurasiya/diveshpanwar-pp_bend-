@@ -120,6 +120,10 @@ router.post('/getNotifications', function(req, res) {
   notificationBL.getNotifications(req, res);
 });
 
+router.post('/getUnreadNotifications', function(req, res) {
+  notificationBL.getUnreadNotifications(req, res);
+});
+
 router.post('/updateNotification', function(req, res) {
   notificationBL.updateNotification(req, res);
 });
