@@ -11,3 +11,7 @@ exports.getFeedbacks = function(req, res) {
 exports.userBroughtProduct = function(req, res) {
     feedbackDAL.userBroughtProduct(req, res);
 }
+
+exports.userGivenFeedback = function(req, res) {
+    feedbackDAL.userGivenFeedback(req, res);
+}

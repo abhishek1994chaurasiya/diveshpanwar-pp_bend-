@@ -167,6 +167,14 @@ router.post('/userBroughtProduct', function(req, res) {
   feedbackBL.userBroughtProduct(req, res);
 });
 
+router.post('/userGivenFeedback', function(req, res) {
+  feedbackBL.userGivenFeedback(req, res);
+});
+
+router.post('/userGivenFeedback', function(req, res) {
+  feedbackBL.userGivenFeedback(req, res);
+});
+
 router.get('/mongoTest', (req, res) => {
   connection((err, client) => {
     if (err) {

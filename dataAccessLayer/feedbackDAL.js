@@ -67,8 +67,8 @@ exports.userBroughtProduct = function(req, res) {
 
       db.collection('recommendations')
         .find({
-            userId: req.body.userId,
-            productId: req.body.productId
+          userId: req.body.userId,
+          productId: req.body.productId
         })
         .toArray(function(err, docs) {
           if (err) {
@@ -76,7 +76,36 @@ exports.userBroughtProduct = function(req, res) {
               .status(400)
               .json({ message: 'Something Wrong Happened' });
           } else {
-            res.json({count: docs.length});
+            res.json({ count: docs.length });
+          }
+        });
+    }
+  });
+};
+
+exports.userGivenFeedback = function(req, res) {
+  connection((err, client) => {
+    if (err) {
+      console.log('Connection not created');
+      res.status(500).json({
+        message: 'We are facing issues with DB, please try after sometime'
+      });
+    } else {
+      // console.log(loginObject);
+      var db = client.db('powerprogrammer');
+
+      db.collection('feedbacks')
+        .find({
+          userId: req.body.userId,
+          productId: req.body.productId
+        })
+        .toArray(function(err, docs) {
+          if (err) {
+            return res
+              .status(400)
+              .json({ message: 'Something Wrong Happened' });
+          } else {
+            res.json({ count: docs.length });
           }
         });
     }
