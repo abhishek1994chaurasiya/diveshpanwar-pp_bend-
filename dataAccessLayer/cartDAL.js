@@ -11,7 +11,7 @@ exports.addBulkCart = function(req, res) {
         message: 'We are facing issues with DB, please try after sometime'
       });
     } else {
-      // console.log(loginObject);
+      console.log(req.body);
       var db = client.db('powerprogrammer');
       userId = req.body.products[0].userId;
       db.collection('carts')
