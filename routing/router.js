@@ -12,6 +12,7 @@ const wishlistBL = require('../businessLayer/wishlistBL');
 const checkoutBL = require('../businessLayer/checkoutBL');
 const orderBL = require('../businessLayer/orderBL');
 const notificationBL = require('../businessLayer/notificationBL');
+const feedbackBL = require('../businessLayer/feedbackBL');
 
 router.get('/', function(req, res, next) {
   res.send('<h1>Welcome to the Express App</h1>');
@@ -152,6 +153,18 @@ router.post('/updateOrder', function(req, res) {
 
 router.post('/getOrders', function(req, res) {
   orderBL.getOrders(req, res);
+});
+
+router.post('/giveFeedback', function(req, res) {
+  feedbackBL.giveFeedback(req, res);
+});
+
+router.post('/getFeedbacks', function(req, res) {
+  feedbackBL.getFeedbacks(req, res);
+});
+
+router.post('/userBroughtProduct', function(req, res) {
+  feedbackBL.userBroughtProduct(req, res);
 });
 
 router.get('/mongoTest', (req, res) => {

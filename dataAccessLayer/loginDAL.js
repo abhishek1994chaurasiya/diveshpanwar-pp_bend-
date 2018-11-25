@@ -18,7 +18,8 @@ var loginDAL = function(req, res, loginObject) {
           if (docs.length > 0) {
             res.json({
               message: 'User Found',
-              id: docs[0]._id
+              id: docs[0]._id,
+              username: docs[0].username
             });
           } else {
             res.status(401).json({message: 'Invalid Credentials'});
