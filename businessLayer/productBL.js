@@ -8,9 +8,17 @@ exports.allDeals = function(req, res) {
 }
 
 exports.singleProduct = function(req, res) {
-    productDAL.singleProduct(req, res);
+    if(req.body.productId.length == 24 ) {
+            productDAL.singleProduct(req, res);
+    } else {
+        res.status(400).json({message: 'Product Id is invalid'});
+    }
 }
 
 exports.searchProduct = function(req, res) {
     productDAL.searchProduct(req, res);
+}
+
+exports.getProductCategory = function(req, res) {
+    productDAL.getProductCategory(req, res);
 }

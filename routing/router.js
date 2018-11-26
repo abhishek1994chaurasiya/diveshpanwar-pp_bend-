@@ -13,6 +13,7 @@ const checkoutBL = require('../businessLayer/checkoutBL');
 const orderBL = require('../businessLayer/orderBL');
 const notificationBL = require('../businessLayer/notificationBL');
 const feedbackBL = require('../businessLayer/feedbackBL');
+const categoryBL = require('../businessLayer/categoryBL');
 
 router.get('/', function(req, res, next) {
   res.send('<h1>Welcome to the Express App</h1>');
@@ -35,6 +36,10 @@ router.get('/products', function(req, res) {
   productBL.allProducts(req, res);
 });
 
+router.get('/categories', function(req, res) {
+  categoryBL.allCategories(req, res);
+});
+
 router.get('/deals', function(req, res) {
   productBL.allDeals(req, res);
 });
@@ -45,6 +50,10 @@ router.post('/singleProduct', function(req, res){
 
 router.post('/searchProduct', function(req, res) {
   productBL.searchProduct(req, res);
+});
+
+router.post('/getProductCategory', function(req, res) {
+  productBL.getProductCategory(req, res);
 });
 
 router.post('/addAddress', function(req, res) {

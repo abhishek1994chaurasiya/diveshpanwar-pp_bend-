@@ -88,7 +88,7 @@ exports.updateOrder = function(req, res) {
             db.collection('notifications').insertOne(
               {
                 userId: orderObject.userId,
-                message: `Order ${req.body._id} updated successfully`,
+                message: `Order ${req.body._id} ${req.body.orderStatus} successfully`,
                 status: 'unread',
                 orderId: req.body._id
 

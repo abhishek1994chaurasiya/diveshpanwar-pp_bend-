@@ -6,6 +6,9 @@ var checkoutBean = function(addressId, cardId, userId, orderDate, grandTotal, or
     this.grandTotal = grandTotal;
     this.orderStatus = orderStatus;
     this.products = products
+    this.deliveryDate = new Date(new Date().getTime() + (24*36000000));
+    this.returnDate = new Date(new Date().getTime() + (24*36000000));
+    this.canBeReturned = true;
   };
   
   checkoutBean.toObject = function(obj) {
