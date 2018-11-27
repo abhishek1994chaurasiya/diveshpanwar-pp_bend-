@@ -68,7 +68,8 @@ exports.userBroughtProduct = function(req, res) {
       db.collection('recommendations')
         .find({
           userId: req.body.userId,
-          productId: req.body.productId
+          productId: req.body.productId,
+          canBeReviewed: true
         })
         .toArray(function(err, docs) {
           if (err) {

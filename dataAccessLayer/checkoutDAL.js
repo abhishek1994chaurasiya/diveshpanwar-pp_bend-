@@ -33,7 +33,12 @@ exports.placeOrder = function(req, res) {
                   .status(400)
                   .json({ message: 'Something Wrong Happened' });
               } else {
-                db.collection('recommendations').insertMany(documents, function(
+                recommendationsArray = [];
+                documents.forEach(prod => {
+                  prod.orderId = doc.insertedId
+                  recommendationsArray.push(prod);
+                });
+                db.collection('recommendations').insertMany(recommendationsArray, function(
                   err,
                   result
                 ) {

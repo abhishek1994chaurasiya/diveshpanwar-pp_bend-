@@ -22,6 +22,8 @@ var cartBean = function(
   this.productQuantity = productQuantity;
   this.imgUrl = imgUrl;
   this.category = category;
+  this.canBeReviewed = false;
+  this.orderId = 'na'
 };
 
 cartBean.toObject = function(obj) {
