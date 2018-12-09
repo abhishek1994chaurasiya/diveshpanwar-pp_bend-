@@ -1,6 +1,6 @@
 const express = require('express');
 
-const port = 3000;
+const port = 5000;
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const router = require('./routing/router');
@@ -15,6 +15,6 @@ app.use(bodyParser.json());
 app.use(requestLogger);
 app.use('/', router);
 app.use(errorLogger);
-app.listen(process.env.port || port, () => {
-  console.log(`App launched at port ${port}`);
-});
+app.listen(process.env.port || port, () =>
+  console.log(`App launched at port ${port}`)
+          );
